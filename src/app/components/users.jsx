@@ -15,9 +15,6 @@ const Users = () => {
     const pageSize = 8;
 
     const [users, setUsers] = useState();
-    // this code is working    -->
-    //          const [users, setUsers] = useState(api.users.fetchAll());
-    // this code isn't working -->
     useEffect(() => {
         api.users.fetchAll().then((data) => setUsers(data));
     }, []);
@@ -54,7 +51,11 @@ const Users = () => {
 
     if (users) {
         const filteredUsers = selectedProf
-            ? users.filter((user) => user.profession === selectedProf)
+            ? users.filter(
+                  (user) =>
+                      JSON.stringify(user.profession) ===
+                      JSON.stringify(selectedProf)
+              )
             : users;
 
         const count = filteredUsers.length;
